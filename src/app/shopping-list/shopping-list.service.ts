@@ -1,8 +1,8 @@
 import { Ingredient } from '../shared/ingredient.model';
-import { EventEmitter } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 
 export class ShoppingListService {
-  shoppingListChanged = new EventEmitter<Ingredient[]>();
+  shoppingListChanged = new Subject<Ingredient[]>();
   private shoppingList: Ingredient[] = [
     new Ingredient('Apples', 5),
     new Ingredient('Egg', 6)
@@ -10,7 +10,7 @@ export class ShoppingListService {
 
   addIngredient(ingredient: Ingredient) {
     this.shoppingList.push(ingredient);
-    this.shoppingListChanged.emit(this.shoppingList.slice());
+    this.shoppingListChanged.next(this.shoppingList.slice());
   }
 
   addIngredientsToShoppingList(ingredients: Ingredient[]) {
@@ -19,7 +19,7 @@ export class ShoppingListService {
     //   (ingredient: Ingredient) => this.addIngredient(ingredient)
     // )
     this.shoppingList.push(...ingredients); // ... is called 'spread', it turns an array into a list, which can be pushed
-    this.shoppingListChanged.emit(this.shoppingList.slice());
+    this.shoppingListChanged.next(this.shoppingList.slice());
   }
 
   getShoppingList() {
