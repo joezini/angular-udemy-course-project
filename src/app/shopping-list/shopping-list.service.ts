@@ -11,7 +11,7 @@ export class ShoppingListService {
 
   addIngredient(ingredient: Ingredient) {
     this.shoppingList.push(ingredient);
-    this.shoppingListChanged.next(this.shoppingList.slice());
+    this.announceUpdate();
   }
 
   addIngredientsToShoppingList(ingredients: Ingredient[]) {
@@ -20,7 +20,7 @@ export class ShoppingListService {
     //   (ingredient: Ingredient) => this.addIngredient(ingredient)
     // )
     this.shoppingList.push(...ingredients); // ... is called 'spread', it turns an array into a list, which can be pushed
-    this.shoppingListChanged.next(this.shoppingList.slice());
+    this.announceUpdate();
   }
 
   getShoppingList() {
@@ -33,11 +33,20 @@ export class ShoppingListService {
 
   updateShoppingListItem(index: number, newShoppingListItem: Ingredient) {
     this.shoppingList[index] = newShoppingListItem;
-    this.shoppingListChanged.next(this.shoppingList.slice());
+    this.announceUpdate();
   }
 
   deleteShoppingListItem(index: number) {
     this.shoppingList.splice(index, 1);
+    this.announceUpdate();
+  }
+
+  updateAllShoppingListItems(shoppingList: Ingredient[]) {
+    this.shoppingList = shoppingList;
+    this.announceUpdate();
+  }
+
+  announceUpdate() {
     this.shoppingListChanged.next(this.shoppingList.slice());
   }
 }
