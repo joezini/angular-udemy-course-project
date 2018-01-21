@@ -18,6 +18,10 @@ import { RecipeSelectMessageComponent } from './recipes/recipe-select-message/re
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { RecipeService } from './recipes/recipe.service';
 import { BackupService } from './shared/backup.service';
+import { AuthService } from './auth/auth.service';
+import { SignupComponent } from './auth/signup/signup.component';
+import { SigninComponent } from './auth/signin/signin.component';
+import { AuthGuard } from './auth/auth-guard.service';
  
 @NgModule({
   declarations: [
@@ -31,7 +35,9 @@ import { BackupService } from './shared/backup.service';
     RecipeDetailComponent,
     DropdownDirective,
     RecipeSelectMessageComponent,
-    RecipeEditComponent
+    RecipeEditComponent,
+    SignupComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +46,7 @@ import { BackupService } from './shared/backup.service';
     ReactiveFormsModule,
     HttpModule
   ],
-  providers: [ShoppingListService, RecipeService, BackupService],
+  providers: [ShoppingListService, RecipeService, BackupService, AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

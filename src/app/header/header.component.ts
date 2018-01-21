@@ -3,6 +3,7 @@ import { BackupService } from '../shared/backup.service';
 import { Response } from '@angular/http';
 import { RecipeService } from '../recipes/recipe.service';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,8 @@ import { ShoppingListService } from '../shopping-list/shopping-list.service';
 export class HeaderComponent  {
   constructor(private backupService: BackupService,
               private recipeService: RecipeService,
-              private shoppingListService: ShoppingListService) {}
+              private shoppingListService: ShoppingListService,
+              private authService: AuthService) {}
 
   onSaveData() {
     this.backupService.saveData().subscribe(
@@ -23,5 +25,9 @@ export class HeaderComponent  {
   
   onFetchData() {
     this.backupService.fetchData();
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 }
