@@ -5,19 +5,22 @@ import { ShoppingListService } from "../shopping-list/shopping-list.service";
 import { Recipe } from "../recipes/recipe.model";
 import 'rxjs/Rx';
 import { AuthService } from "../auth/auth.service";
+import { Store } from '@ngrx/store';
+import { Ingredient } from "./ingredient.model";
 
 @Injectable()
 export class BackupService {
   constructor(private http: Http,
               private recipeService: RecipeService,
               private shoppingListService: ShoppingListService,
-              private authService: AuthService) {}
+              private authService: AuthService,
+              private store: Store<{shoppingList: { shoppingList: Ingredient[] }}>) {}
 
   saveData() {
     const token = this.authService.getToken();
     const data = {
       'recipes': this.recipeService.getRecipes(),
-      'shoppingList': this.shoppingListService.getShoppingList()
+      'shoppingList': this.store.select('shoppingList')
     };
     return this.http.put('https://ng-recipe-book-32a70.firebaseio.com/data.json?auth=' + token, data);
   }

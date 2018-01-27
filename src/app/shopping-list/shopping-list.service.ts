@@ -9,11 +9,6 @@ export class ShoppingListService {
     new Ingredient('Egg', 6)
   ];
 
-  addIngredient(ingredient: Ingredient) {
-    this.shoppingList.push(ingredient);
-    this.announceUpdate();
-  }
-
   addIngredientsToShoppingList(ingredients: Ingredient[]) {
     // Not ideal, too many events
     // ingredients.forEach(
@@ -21,10 +16,6 @@ export class ShoppingListService {
     // )
     this.shoppingList.push(...ingredients); // ... is called 'spread', it turns an array into a list, which can be pushed
     this.announceUpdate();
-  }
-
-  getShoppingList() {
-    return this.shoppingList.slice();
   }
 
   getShoppingListItem(index: number) {
