@@ -1,20 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BackupService } from '../../shared/backup.service';
 import { Response } from '@angular/http';
-import { RecipeService } from '../../recipes/recipe.service';
-import { ShoppingListService } from '../../shopping-list/shopping-list.service';
+import { Store } from '@ngrx/store';
 import { AuthService } from '../../auth/auth.service';
+import * as AuthActions from '../../auth/store/auth.actions';
+import * as fromApp from '../../store/app.reducers';
+import * as fromAuth from '../../auth/store/auth.reducers';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent  {
+export class HeaderComponent implements OnInit  {
+  authState: Observable<fromAuth.State>;
+
   constructor(private backupService: BackupService,
-              private recipeService: RecipeService,
-              private shoppingListService: ShoppingListService,
-              private authService: AuthService) {}
+              private authService: AuthService,
+              private store: Store<fromApp.AppState>) {}
+
+  ngOnInit() {
+    this.authState = this.store.select('auth');
+  }
 
   onSaveData() {
     this.backupService.saveData().subscribe(
@@ -29,9 +37,5 @@ export class HeaderComponent  {
 
   onLogout() {
     this.authService.logout();
-  }
-
-  isAuthenticated() {
-    return this.authService.isAuthenticated();
   }
 }

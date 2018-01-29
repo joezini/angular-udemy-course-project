@@ -13,8 +13,6 @@ import { FormsModule } from "@angular/forms";
     SigninComponent
   ],
   imports: [
-    CommonModule,
-    SharedModule,
     AuthRoutingModule,
     FormsModule
   ]
