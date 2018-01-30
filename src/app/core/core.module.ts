@@ -8,7 +8,6 @@ import { BackupService } from "../shared/backup.service";
 import { AuthGuard } from "../auth/auth-guard.service";
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../shared/auth.interceptor';
-import { AuthService } from "../auth/auth.service";
 
 @NgModule({
   declarations: [
@@ -26,7 +25,6 @@ import { AuthService } from "../auth/auth.service";
   providers: [
     RecipeService, 
     BackupService, 
-    AuthService,
     AuthGuard,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ]
