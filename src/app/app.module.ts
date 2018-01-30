@@ -15,7 +15,7 @@ import { CoreModule } from './core/core.module';
 import { reducers } from './store/app.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './auth/store/auth.effects';
- 
+  
 @NgModule({
   declarations: [
     AppComponent
@@ -29,6 +29,7 @@ import { AuthEffects } from './auth/store/auth.effects';
     SharedModule,
     CoreModule,
     StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([AuthEffects]),
     StoreRouterConnectingModule,
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
